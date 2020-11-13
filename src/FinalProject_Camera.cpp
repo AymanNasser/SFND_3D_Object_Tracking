@@ -221,7 +221,7 @@ int main(int argc, const char *argv[])
             
             std::cout << "#8 : TRACK 3D OBJECT BOUNDING BOXES done" << std::endl;
 
-            continue;
+            // continue;
             
             /* COMPUTE TTC ON OBJECT IN FRONT */
 
