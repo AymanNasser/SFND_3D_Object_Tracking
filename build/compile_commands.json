@@ -1,27 +1,27 @@
 [
 {
   "directory": "/home/an/FOEASU-Linux/SFND_3D_Object_Tracking/build",
-  "command": "/usr/bin/g++-7   -isystem /usr/local/include/opencv4  -g   -std=c++11 -std=gnu++11 -o CMakeFiles/3D_object_tracking.dir/src/camFusion_Student.cpp.o -c /home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/camFusion_Student.cpp",
+  "command": "/usr/bin/g++-7  -isystem /usr/local/include/opencv4 -g   -std=c++11 -o CMakeFiles/3D_object_tracking.dir/src/camFusion_Student.o -c /home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/camFusion_Student.cpp",
   "file": "/home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/camFusion_Student.cpp"
 },
 {
   "directory": "/home/an/FOEASU-Linux/SFND_3D_Object_Tracking/build",
-  "command": "/usr/bin/g++-7   -isystem /usr/local/include/opencv4  -g   -std=c++11 -std=gnu++11 -o CMakeFiles/3D_object_tracking.dir/src/FinalProject_Camera.cpp.o -c /home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/FinalProject_Camera.cpp",
+  "command": "/usr/bin/g++-7  -isystem /usr/local/include/opencv4 -g   -std=c++11 -o CMakeFiles/3D_object_tracking.dir/src/FinalProject_Camera.o -c /home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/FinalProject_Camera.cpp",
   "file": "/home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/FinalProject_Camera.cpp"
 },
 {
   "directory": "/home/an/FOEASU-Linux/SFND_3D_Object_Tracking/build",
-  "command": "/usr/bin/g++-7   -isystem /usr/local/include/opencv4  -g   -std=c++11 -std=gnu++11 -o CMakeFiles/3D_object_tracking.dir/src/lidarData.cpp.o -c /home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/lidarData.cpp",
+  "command": "/usr/bin/g++-7  -isystem /usr/local/include/opencv4 -g   -std=c++11 -o CMakeFiles/3D_object_tracking.dir/src/lidarData.o -c /home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/lidarData.cpp",
   "file": "/home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/lidarData.cpp"
 },
 {
   "directory": "/home/an/FOEASU-Linux/SFND_3D_Object_Tracking/build",
-  "command": "/usr/bin/g++-7   -isystem /usr/local/include/opencv4  -g   -std=c++11 -std=gnu++11 -o CMakeFiles/3D_object_tracking.dir/src/matching2D_Student.cpp.o -c /home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/matching2D_Student.cpp",
+  "command": "/usr/bin/g++-7  -isystem /usr/local/include/opencv4 -g   -std=c++11 -o CMakeFiles/3D_object_tracking.dir/src/matching2D_Student.o -c /home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/matching2D_Student.cpp",
   "file": "/home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/matching2D_Student.cpp"
 },
 {
   "directory": "/home/an/FOEASU-Linux/SFND_3D_Object_Tracking/build",
-  "command": "/usr/bin/g++-7   -isystem /usr/local/include/opencv4  -g   -std=c++11 -std=gnu++11 -o CMakeFiles/3D_object_tracking.dir/src/objectDetection2D.cpp.o -c /home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/objectDetection2D.cpp",
+  "command": "/usr/bin/g++-7  -isystem /usr/local/include/opencv4 -g   -std=c++11 -o CMakeFiles/3D_object_tracking.dir/src/objectDetection2D.o -c /home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/objectDetection2D.cpp",
   "file": "/home/an/FOEASU-Linux/SFND_3D_Object_Tracking/src/objectDetection2D.cpp"
 }
 ]

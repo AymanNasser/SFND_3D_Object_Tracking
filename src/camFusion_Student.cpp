@@ -189,28 +189,54 @@ void computeTTCCamera(std::vector<cv::KeyPoint> &kptsPrev, std::vector<cv::KeyPo
 void computeTTCLidar(std::vector<LidarPoint> &lidarPointsPrev,
                      std::vector<LidarPoint> &lidarPointsCurr, double frameRate, double &TTC)
 {
-    // auxiliary variables
-    double dT = 1 / frameRate; // time between two measurements in seconds
-    double laneWidth = 4.0; // assumed width of the ego lane
+    double dT = 1 / frameRate;   
+    double minXPrev = 1e6, minXCurr = 1e6;
 
-    // find closest distance to Lidar points within ego lane
-    double minXPrev = 1e9, minXCurr = 1e9;
+    std::vector<LidarPoint> prevFilteredPoints, currFilteredPoints; 
+    // Removing lidar points with low reflectivity from previous frame 
+    double avgReflectivity = 0;
     for (auto it = lidarPointsPrev.begin(); it != lidarPointsPrev.end(); ++it)
-    {   
-        if (it->y > laneWidth && it->y < -laneWidth)
-            continue;
-        minXPrev = minXPrev > it->x ? it->x : minXPrev;
-    }
+        avgReflectivity += it->r;
+    
+    avgReflectivity = avgReflectivity / lidarPointsPrev.size();
 
+    for (auto it = lidarPointsPrev.begin(); it != lidarPointsPrev.end(); ++it)
+        if(it->r >= avgReflectivity)
+            prevFilteredPoints.push_back(*it);
+
+    // Removing lidar points with low reflectivity from current frame 
+    avgReflectivity = 0;
     for (auto it = lidarPointsCurr.begin(); it != lidarPointsCurr.end(); ++it)
-    {
-        if (it->y > laneWidth && it->y < -laneWidth)
-            continue;
-        minXCurr = minXCurr > it->x ? it->x : minXCurr;
-    }
+        avgReflectivity += it->r;
+    
+    avgReflectivity = avgReflectivity / lidarPointsPrev.size();
+    
+    for (auto it = lidarPointsCurr.begin(); it != lidarPointsCurr.end(); ++it)
+        if(it->r >= avgReflectivity)
+            currFilteredPoints.push_back(*it);
+
+    std::vector<double> xCoordPrev, xCoordCurr;
+    
+    for (auto it = prevFilteredPoints.begin(); it != prevFilteredPoints.end(); ++it)
+        xCoordPrev.push_back(it->x);
+
+    // Sorting lidar point x distance in ascending order
+    std::sort(xCoordPrev.begin(), xCoordPrev.end());
+
+    // Picking an X-Point of preceding vehicle after splitting the lidar points size / 5 --> 5 sections 
+    // then pick the 1st point of the second section 
+
+    minXPrev = xCoordPrev[ int(xCoordPrev.size() / 5) ];
+
+    for (auto it = currFilteredPoints.begin(); it != currFilteredPoints.end(); ++it)
+        xCoordCurr.push_back(it->x);
+
+    std::sort(xCoordCurr.begin(), xCoordCurr.end());
+
+    minXCurr = xCoordCurr[ int(xCoordCurr.size() / 5) ];
 
     // compute TTC from both measurements
-    TTC = minXCurr * dT / (minXPrev - minXCurr);
+    TTC = minXCurr * dT / (std::abs(minXPrev - minXCurr));
 }
 
 
