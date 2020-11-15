@@ -250,6 +250,7 @@ void computeTTCLidar(std::vector<LidarPoint> &lidarPointsPrev,
 {
     double dT = 1 / frameRate;   
     double minXPrev = 1e6, minXCurr = 1e6;
+    float partialReflectivity = 0.5;
 
     std::vector<LidarPoint> prevFilteredPoints, currFilteredPoints; 
     // Removing lidar points with low reflectivity from previous frame 
@@ -260,7 +261,7 @@ void computeTTCLidar(std::vector<LidarPoint> &lidarPointsPrev,
     avgReflectivity = avgReflectivity / lidarPointsPrev.size();
 
     for (auto it = lidarPointsPrev.begin(); it != lidarPointsPrev.end(); ++it)
-        if(it->r >= avgReflectivity)
+        if(it->r >= (avgReflectivity*partialReflectivity) )
             prevFilteredPoints.push_back(*it);
 
     // Removing lidar points with low reflectivity from current frame 
@@ -271,7 +272,7 @@ void computeTTCLidar(std::vector<LidarPoint> &lidarPointsPrev,
     avgReflectivity = avgReflectivity / lidarPointsPrev.size();
     
     for (auto it = lidarPointsCurr.begin(); it != lidarPointsCurr.end(); ++it)
-        if(it->r >= avgReflectivity)
+        if(it->r >= (avgReflectivity*partialReflectivity) )
             currFilteredPoints.push_back(*it);
 
     std::vector<double> xCoordPrev, xCoordCurr;
@@ -284,15 +285,15 @@ void computeTTCLidar(std::vector<LidarPoint> &lidarPointsPrev,
 
     // Picking an X-Point of preceding vehicle after splitting the lidar points size / 5 --> 5 sections 
     // then pick the 1st point of the second section 
-
-    minXPrev = xCoordPrev[ int(xCoordPrev.size() / 5) ];
+    int lidarPtsSectionsSplit = 10;
+    minXPrev = xCoordPrev[ int(xCoordPrev.size() / lidarPtsSectionsSplit) ];
 
     for (auto it = currFilteredPoints.begin(); it != currFilteredPoints.end(); ++it)
         xCoordCurr.push_back(it->x);
 
     std::sort(xCoordCurr.begin(), xCoordCurr.end());
 
-    minXCurr = xCoordCurr[ int(xCoordCurr.size() / 5) ];
+    minXCurr = xCoordCurr[ int(xCoordCurr.size() / lidarPtsSectionsSplit) ];
 
     // compute TTC from both measurements
     TTC = minXCurr * dT / (std::abs(minXPrev - minXCurr));

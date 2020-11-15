@@ -48,7 +48,7 @@ int main(int argc, const char *argv[])
     std::string imgPrefix = "KITTI/2011_09_26/image_02/data/000000"; // left camera, color
     std::string imgFileType = ".png";
     int imgStartIndex = 0;  // first file index to load (assumes Lidar and camera names have identical naming convention)
-    int imgEndIndex = 1;   // last file index to load
+    int imgEndIndex = 18;   // last file index to load
 
     int imgStepWidth = 1;   // For adjusting FPS
     int imgFillWidth = 4;   // no. of digits which make up the file index (e.g. img-0001.png)
@@ -81,7 +81,7 @@ int main(int argc, const char *argv[])
     for (size_t imgIndex = 0; imgIndex <= imgEndIndex - imgStartIndex; imgIndex+=imgStepWidth)
     {
         /* LOAD IMAGE INTO BUFFER */
-
+        std::cout << "#0 : IMAGE INDEX: " << imgIndex << '\n';
         // assemble filenames for current index
         std::ostringstream imgNumber;
         imgNumber << std::setfill('0') << std::setw(imgFillWidth) << imgStartIndex + imgIndex;
@@ -216,9 +216,9 @@ int main(int argc, const char *argv[])
             // store matches in current data frame
             (dataBuffer.end()-1)->bbMatches = bbBestMatches;
 
-            for (size_t i = 0; i < bbBestMatches.size(); i++)
+            /* for (size_t i = 0; i < bbBestMatches.size(); i++)
                 std::cout<< "Bbox in prev frame of ID= " << i << " is matched to Bbox in current frame of ID= " << bbBestMatches[i] << '\n';
-            
+             */
             std::cout << "#8 : TRACK 3D OBJECT BOUNDING BOXES done" << std::endl;
 
             // continue;
@@ -265,7 +265,7 @@ int main(int argc, const char *argv[])
                     std::cout << "TTC from camera: " << ttcCamera << "s" << std::endl;
                     //// EOF STUDENT ASSIGNMENT
 
-                    bVis = false;
+                    bVis = true;
                     if (bVis)
                     {
                         cv::Mat visImg = (dataBuffer.end() - 1)->cameraImg.clone();
